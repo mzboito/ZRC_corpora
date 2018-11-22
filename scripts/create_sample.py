@@ -15,8 +15,8 @@ do some math to figure out how many members to put in test set for each bucket
 write list of ids in the test set
 '''
 
-SIZE = 330
-SUFFIX = "mb.cleaned"
+SIZE = 5130
+SUFFIX = "en"
 
 def generate_proportion(corpus_dict, size_corpus):
     buckets = []
@@ -56,6 +56,7 @@ def sample_sentences(sentences, number2sample):
 
 def down_sample(corpus_dict, new_size):
     TEST = dict()
+    #print(len(corpus_dict))
     size_corpus = sum(len(corpus_dict[key]) for key in corpus_dict.keys()) 
     buckets = generate_proportion(corpus_dict, size_corpus)
     #print (buckets)
@@ -63,10 +64,12 @@ def down_sample(corpus_dict, new_size):
         number_sent = math.ceil(proportion * new_size)
         assert number_sent <= len(corpus_dict[key])
         TEST[key] = sample_sentences(corpus_dict[key], number_sent)
+    #print(len(TEST))
     return TEST
 
 def prune_set(test_dict, size):
     test_size = sum(len(test_dict[key]) for key in test_dict.keys())
+    #print(test_size)
     if test_size == size: #nothing to do
         return [element[0] for element in [test_dict[key] for key in test_dict.keys()]]
     buckets = sorted(generate_proportion(test_dict, test_size), key=lambda x: x[1]) #sort from the lowest prob to the highest
@@ -83,6 +86,7 @@ def prune_set(test_dict, size):
         if test_dict[key]:
             for element in test_dict[key]:
                 ids_list.append(element)
+    #print(len(ids_list))
     return ids_list
 
 def read_file(f_path):
@@ -94,6 +98,7 @@ def read_corpus(files_folder):
     CORPUS = dict()
     for f_path in f_paths:
         id_sentence, number_tokens = read_file(f_path)
+        #print(id_sentence, number_tokens)
         try:
             CORPUS[number_tokens].append(id_sentence)
         except KeyError:
@@ -121,7 +126,7 @@ def write_dictionary(output_name, dictionary):
 
 
 def main():
-    files_folder = sys.argv[1] if sys.argv[1][-1] == '/' else sys.argv[1] + '/'
+    files_folder = sys.argv[1] + '/'
     output_name = sys.argv[2]
     CORPUS = read_corpus(files_folder)
     test_dict = down_sample(CORPUS, SIZE)

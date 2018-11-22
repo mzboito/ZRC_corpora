@@ -23,6 +23,6 @@ def main():
 if __name__ == "__main__":
     if len(sys.argv) < 3:
         print("MISSING PARAMETERS")
-        print("python generate_ZRC.py")
+        print("python generate_ZRC.py <root_dir> <language prefix>")
         sys.exit(1)
     main()

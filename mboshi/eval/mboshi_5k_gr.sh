@@ -12,7 +12,7 @@ LABELS_LIST=$1
 SEGMENTED_LIST=$2
 
 # 0. pre-process
-EVAL_SCRIPT='/home/getalp/zanonbom/attention_study/evaluation/ZRC_corpora/mboshi/5k/graphemic/eval2.py'
+EVAL_SCRIPT='/home/getalp/zanonbom/evaluation/ZRC_corpora/mboshi/5k/graphemic/eval2.py'
 OUT_DIR_NAME='eval_'$(echo $SEGMENTED_LIST | awk 'BEGIN{FS="/"}{sub(/\.\S+/, "",$NF); print $NF}')
 FA_DIR_NAME='ph_forced_alignments'
 
@@ -40,14 +40,14 @@ cat $OUT_DIR_NAME.segmented | sed 's/ \+/ /g' | awk '{$1=$1;print}' > $OUT_DIR_N
 
 # 3.2 encode segmented phone seq
 printf '\n--Encode phonemes > '$OUT_DIR_NAME.segmented
-python3 /home/getalp/zanonbom/attention_study/evaluation/ZRC_corpora/mboshi/eval/process_data.py \
+python3 /home/getalp/zanonbom/evaluation/ZRC_corpora/mboshi/eval/process_data.py \
     --file_to_encode $OUT_DIR_NAME.segmented.clean
 
 
 #removed o segmented.clean.encoded here
 # 3.3 produce word forced alignments from the encoded version of the file
 printf '\n--Producing word forced alignments > '${OUT_DIR_NAME}'.word.fa'
-python3 /home/getalp/zanonbom/attention_study/evaluation/ZRC_corpora/mboshi/eval/process_data.py \
+python3 /home/getalp/zanonbom/evaluation/ZRC_corpora/mboshi/eval/process_data.py \
     --phone_fa_list $OUT_DIR_NAME.list \
     --segmented_input_file $OUT_DIR_NAME.segmented.clean.encoded \
     --word_fa_file $OUT_DIR_NAME.word.fa

@@ -47,7 +47,7 @@ def load(phndir, wrddir, outdir, prefix):
     print (len(phn_fragments), len(wrd_fragments))
     for i in range(len(phn_fragments)):
         if phn_fragments[i] == []:
-            print i
+            print (i)
     # remove "sil", "sp"
     #phn_fragments = [[f for f in fl if not f.mark in ['SIL', 'sp']] #'__#__',
     #                 for fl in phn_fragments]

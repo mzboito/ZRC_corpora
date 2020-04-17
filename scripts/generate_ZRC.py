@@ -3,7 +3,7 @@ import sys, os
 from loader import load
 from builder import make_gold, split_em
 
-n_jobs=4
+n_jobs=2
 verbose=True
 
 def main():

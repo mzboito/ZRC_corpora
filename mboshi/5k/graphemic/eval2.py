@@ -330,12 +330,31 @@ def _boundary_sub(disc_clsdict, corpus, names, label, verbose, n_jobs):
                        for ns in names]
         gold_bounds = [Boundaries(corpus.restrict(ns))
                        for ns in names]
+    #print(len(disc_bounds[0].bounds))
+    acc = 0
+    '''for element in disc_bounds:
+        for key in element.bounds.keys():
+            acc += len(element.bounds[key])
+        print(acc, len(element.bounds))'''
+        
+
+    acc = 0
+    '''for element in gold_bounds:
+        for key in element.bounds.keys():
+            acc += len(element.bounds[key])
+        print(acc, len(element.bounds))
+        acc = 0'''
+
+        #print(element.bounds.keys()[:10], len(element.bounds))
+        #print(element.bounds[element.bounds.keys()[0]])
+
     with verb_print('  boundary ({0}): calculating scores'
                              .format(label), verbose, False, True, False):
         p, r = izip(*Parallel(n_jobs=n_jobs, verbose=5 if verbose else 0,
                               pre_dispatch='2*n_jobs') \
                     (delayed(eb)(disc, gold)
                      for disc, gold in zip(disc_bounds, gold_bounds)))
+    
     p, r = np.fromiter(p, dtype=np.double), np.fromiter(r, dtype=np.double)
     p, r = praggregate(p, r)
     return p, r
@@ -347,12 +366,9 @@ def boundary(disc_clsdict, corpus, fragments_within, fragments_cross,
         print banner('BOUNDARY')
     pc, rc = _boundary_sub(disc_clsdict, corpus, fragments_cross,
                            'cross', verbose, n_jobs)
-    #print len(fragments_cross), len(corpus), len(disc_clsdict)
     fc = np.fromiter((fscore(pc[i], rc[i]) for i in xrange(pc.shape[0])), dtype=np.double)
     pw, rw = _boundary_sub(disc_clsdict, corpus, fragments_within,
                            'within', verbose, n_jobs)
-    #print fc
-    #print pw, rw
     fw = np.fromiter((fscore(pw[i], rw[i]) for i in xrange(pw.shape[0])), dtype=np.double)
     with open(path.join(dest, 'boundary'), 'w') as fid:
         fid.write(pretty_score_f(pc, rc, fc, 'boundary total',

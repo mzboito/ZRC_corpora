@@ -28,6 +28,7 @@ def encode_phone(ph_name):
         return ""
     prefix_size = 0
     for c in ph_name:
+        #rint(c)
         if not c.isdigit():
             prefix_size += 1
         else:
@@ -92,10 +93,11 @@ def extract_line_from_phone_FA(filename):
 
 # l = 'a23 a87a23a20a98 a44 a54a73a32a75 a73a35 a14a66 a9a0a26a24a41a25a87\n'
 def encode_phone_seq(line):
-    #print(line)
+    line = line.replace("_","")
     buff = ''
     output_line = ''
     for i, c in enumerate(line.replace("  "," ")):
+        #print(i,c)
         if c == ' ' or c == '\n':
             # flush encoded buffer + space
             enc_buff = encode_phone(buff)

@@ -105,8 +105,13 @@ def read_phones(f_path):
 
 def build_word_FA_files(phone_FA_file_list, segmented_file, out_word_file):
     segmentations = [line for line in codecs.open(segmented_file, 'r', encoding='utf-8')]
-    assert len(segmentations) == len(phone_FA_file_list)
-
+    try:
+        assert len(segmentations) == len(phone_FA_file_list)
+    except AssertionError:
+        print("Segmentation size problem")
+        print(segmented_file)
+        print(len(segmentations),len(phone_FA_file_list))
+        exit(1)
     with codecs.open(out_word_file, encoding='utf-8', mode='w') as w:
         for i in range(len(segmentations)):
             segmentation = segmentations[i]

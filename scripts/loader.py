@@ -14,6 +14,7 @@ def load_annot(fname):
     bname = path.splitext(path.basename(fname))[0]
     for line in open(fname):
         #print line.strip().split(' ')
+        #print(fname)
         start, stop, mark = line.strip().split(' ')
         interval = Interval(round(float(start), 2),
                             round(float(stop), 2))

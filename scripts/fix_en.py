@@ -43,8 +43,8 @@ def main():
     root_folder = sys.argv[1] 
     fix_individual_files(root_folder + "/phn/")
     fix_individual_files(root_folder + "/wrd/")
-    #sil_lines = fix_phn_file(root_folder + "/english.phn")
-    #write_file(root_folder + "/english.sil", sil_lines)
+    sil_lines = fix_phn_file(root_folder + "/english.phn")
+    write_file(root_folder + "/english.sil", sil_lines)
 
 
 if __name__ == '__main__':

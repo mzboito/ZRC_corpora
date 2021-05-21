@@ -46,7 +46,10 @@ def split_em(phn_fragments, outdir, prefix):
     names_within = [list(v)
                     for v in intervals_per_speaker.values()]
                     #if len(v) > 2] this makes intervals.within be empty if there are no speaker information
-    #print names_within
+    #print (len(names_cross[-1])), len(names_cross[0])
+
+    names_cross[-1] = [element for element in names_cross[-1] if element != None]
+    #names_cross = names_cross[:-1]
     with open(path.join(outdir, prefix + '.intervals.cross'), 'w') as fp:
         fp.write('\n\n'.join('\n'.join('{0} {1:.2f} {2:.2f}'.format(
             name, interval.start, interval.end)
@@ -67,7 +70,7 @@ def split_em(phn_fragments, outdir, prefix):
         fp.write('\n')
 
     fnames = list(set(f[0].name for f in phn_fragments))
-    #print len(fnames), len(sorted(fnames))
+    print len(fnames), len(sorted(fnames))
     with open(path.join(outdir, prefix + '.files'), 'w') as fp:
         fp.write('\n'.join(sorted(fnames)))
         fp.write('\n')

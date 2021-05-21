@@ -1,0 +1,14 @@
+Loading files ...
+(5324, 5324)
+Extraction gold ...
+Found 5324 sequences. Extracting fragments from 14175150 combinations
+[Parallel(n_jobs=2)]: Using backend LokyBackend with 2 concurrent workers.
+Loading files ...
+(5324, 5324)
+Extraction gold ...
+Found 5324 sequences. Extracting fragments from 14175150 combinations
+[Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
+[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:   53.5s remaining:    0.0s
+[Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:  2.8min remaining:    0.0s
+[Parallel(n_jobs=1)]: Done   3 out of   3 | elapsed:  4.6min remaining:    0.0s
+[Parallel(n_jobs=1)]: Done   4 out of   4 | elapsed:  5.6min remaining:    0.0s
